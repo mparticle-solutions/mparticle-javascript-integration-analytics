@@ -10,8 +10,8 @@
   "publishConfig": {
     "access": "public"
   },
-    "repository": "https://github.com/mparticle-solutions/mparticle-javascript-integration-analytics",
-    "scripts": {
+  "repository": "https://github.com/mparticle-solutions/mparticle-javascript-integration-analytics",
+  "scripts": {
     "testKarma": "node test/boilerplate/test-karma.js",
     "build": "ENVIRONMENT=production rollup --config rollup.config.js",
     "watch": "ENVIRONMENT=production rollup --config rollup.config.js -w",
