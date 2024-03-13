@@ -37,17 +37,20 @@ function EventHandler(common) {
     this.common = common || {};
 }
 EventHandler.prototype.logEvent = function (event) {
-    // console.log(`here is the ${event} from mParticle`)
-    console.log(event);
-    if (event.EventName === 'Registration Submit') {
-        mParticle.logEvent(
-            'User Alias',
-            mParticle.EventType.Other,
-            {
-                'anonymous_mpid': `${mParticle?.Identity?.getUsers?.()[1]?.getMPID()}`,
-                'known_mpid': `${mParticle?.Identity?.getCurrentUser?.().getMPID()}`
-            }
-        );
+    if (event.EventName === this.common.mPAnalyticsEventName) {
+        try {
+            var anonymousUserMPID = mParticle.Identity.getUsers()[1].getMPID();
+            var currentUserMPID = mParticle.Identity.getCurrentUser().getMPID();
+            mParticle.logEvent('$User Authentication', mParticle.EventType.Other, {
+                anonymous_mpid: anonymousUserMPID,
+                known_mpid: currentUserMPID,
+            });
+        } catch (error) {
+            console.error("Error Logging User Authentication", error);
+        }
+
+
+
     }
 };
 EventHandler.prototype.logError = function (event) {
@@ -98,7 +101,9 @@ var initialization = {
     */
     initForwarder: function (forwarderSettings, testMode, userAttributes, userIdentities, processEvent, eventQueue, isInitialized, common, appVersion, appName, customFlags, clientId) {
         /* `forwarderSettings` contains your SDK specific settings such as apiKey that your customer needs in order to initialize your SDK properly */
-
+        if (!testMode) {
+            common.mPAnalyticsEventName = forwarderSettings.mPAnalyticsEventName;
+        }
     }
 };
 
