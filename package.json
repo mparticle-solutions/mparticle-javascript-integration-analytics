@@ -1,5 +1,5 @@
 {
-  "name": "@mparticle/web-mParticle-analytics-kit",
+  "name": "@mparticle/web-mparticle-analytics-kit",
   "version": "1.0.0",
   "main": "dist/mParticleAnalytics-Kit.common.js",
   "browser": "dist/mParticleAnalytics-Kit.iife.js",
